@@ -15,15 +15,14 @@ import java.io.PrintWriter;
 @DartsRequestMapping("/darts")
 public class TestController {
 
-    @DartsAutowired("testServiceImpl")
+    @DartsAutowired("testService")
     private TestService testService;
 
-    @DartsRequestMapping("/query")
-    public void query(HttpServletRequest request, HttpServletResponse response,
-                      @DartsRequestParam("name") String name, @DartsRequestParam("age") Integer age){
+    @DartsRequestMapping("query")
+    public void query(HttpServletRequest request, HttpServletResponse response){
         try {
             PrintWriter printWriter = response.getWriter();
-            String result = testService.query(name,age);
+            String result = testService.query("zhagnsan","213");
             printWriter.write(result);
         } catch (IOException e) {
             e.printStackTrace();

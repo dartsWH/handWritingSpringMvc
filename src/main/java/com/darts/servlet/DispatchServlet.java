@@ -141,7 +141,7 @@ public class DispatchServlet extends HttpServlet {
 
     private void basePackageScan(String basePackage) {
         //扫描编译好的类路径  class
-        URL url = this.getClass().getClassLoader().getResource("/"+basePackage.replace("\\.","/"));
+        URL url = this.getClass().getClassLoader().getResource("/"+basePackage.replaceAll("\\.","/"));
         String fileStr = url.getFile();
         File file = new File(fileStr);
 
@@ -164,7 +164,7 @@ public class DispatchServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String uri = req.getRequestURI();//取得请求路径  /dartsMvc/darts/query
+        String uri = req.getRequestURI();//取得请求路径  /darts-Mvc/darts/query
 
         String context = req.getContextPath(); //  /darts-mvc
 
@@ -173,7 +173,6 @@ public class DispatchServlet extends HttpServlet {
         Method method = (Method) handleMap.get(path);
 
         TestController instance = (TestController) beans.get("/" + path.split("/")[1]);
-
         Object[] args = hand(req,resp,method);
 
         try {
